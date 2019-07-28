@@ -37,13 +37,13 @@
 
     <div id="app1">    </div>
     <template id="app1_template">
-        <div>
+        <div class="mt-5">
             <div class="text-center" v-if="!login_user_info.no">
                 <button class="btn btn-dark btn-md" v-on:click="login_pop()">로그인</button>
                 <button class="btn btn-dark btn-md" v-on:click="signup_pop()">회원가입</button>
             </div>
-            <div v-else>
-                {{login_user_info.nickname}} 님, 반갑습니다.
+            <div v-else class="text-center">
+                {{login_user_info.nickname}} 님, 반갑습니다. <button class="btn btn-dark btn-md" v-on:click="logout()">logout</button>
             </div>
         </div>
     </template>
@@ -161,6 +161,8 @@
     <script>
 
         var user_key = sessionStorage.getItem('USER_KEY'); //유저키
+        
+
         var app1 = new Vue ({
             el:'#app1',
             template:'#app1_template',
@@ -187,7 +189,10 @@
                         });
                     }
                 },
-
+                logout:function(){
+                    sessionStorage.clear();
+                    location.reload();
+                },
                 login_pop:function(){
                     bootbox.hideAll();
                     bootbox.alert({

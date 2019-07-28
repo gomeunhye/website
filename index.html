@@ -35,7 +35,379 @@
 
 <body>
 
+    <div id="app1">    </div>
+    <template id="app1_template">
+        <div>
+            <div class="text-center" v-if="!login_user_info.no">
+                <button class="btn btn-dark btn-md" v-on:click="login_pop()">로그인</button>
+                <button class="btn btn-dark btn-md" v-on:click="signup_pop()">회원가입</button>
+            </div>
+            <div v-else>
+                {{login_user_info.nickname}} 님, 반갑습니다.
+            </div>
+        </div>
+    </template>
+        <!--로그인템플릿-->
+        <template id="login_pop">
+            <div class="login-box card">
+                <div class="card-body">
+        
+                    <form class="form-horizontal form-material" id="loginform">
+                    
+                        <h3 class="text-center m-b-20 m-t10">로그인</h3>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" name="login_user_id" required=""  placeholder="아이디11"> </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" name="login_user_password" required="" value="" placeholder="비밀번호"> </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="d-flex no-block align-items-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="auto_signin_yn" value="Y" name="auto_signin_yn">
+                                        <label class="custom-control-label" for="auto_signin_yn">자동로그인</label>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" id="to-recover" class="text-muted"><i class="fas fa-lock m-r-5"></i> 암호가 기억안나세요?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <div class="col-xs-12 p-b-20">
+                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group m-b-0">
+                            <div class="col-sm-12 text-center">
+                                계정이 없으신가요? <a href="#" class="text-info m-l-5"><b>회원가입</b></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </template>
+        <!--로그인템플릿-->
+        <!--회원가입템플릿-->
+        <template id="signin_pop">
+                <div class="login-box card">
+                    <div class="card-body">
+                        <form class="form-horizontal form-control-line " id="signform">
+                           
+            
+                            <h3 class="text-center m-b-20">회원가입</h3>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="text" required="" autocomplete="off" name="user_id" id="user_id"  placeholder="아이디">
+                                    <small id="user_id_help_txt" class="form-text text-muted"></small>
+                                    <input type="hidden" id="user_id_chk" value=""><!--아이디 체크여부 -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="text"  required="" autocomplete="off" name="user_nickname" id="user_nickname" placeholder="닉네임">
+                                    <small id="user_nickname_help_txt" class="form-text text-muted"></small>
+                                    <input type="hidden" id="user_nickname_chk" value=""><!--닉네임 체크여부 -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="email" required="" autocomplete="off" name="user_email" id="user_email" placeholder="이메일">
+                                    <small id="user_email_help_txt" class="form-text text-muted"></small>
+                                    <input type="hidden" id="user_email_chk" value=""><!--이메일 체크여부 -->
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="password" required="" autocomplete="off" name="user_passwd" id="user_passwd" placeholder="비밀번호">
+                                    <small id="user_passwd_help_txt" class="form-text text-muted"></small>
+                                    <input type="hidden" id="user_passwd_chk" value=""><!--암호형식 체크여부 -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="password" required="" autocomplete="off" name="confirm_user_passwd" id="confirm_user_passwd" placeholder="비밀번호 확인">
+                                    <small id="confirm_user_passwd_help_txt" class="form-text text-muted"></small>
+                                    <input type="hidden" id="confirm_user_passwd_chk" value=""><!--암호형식 체크여부 -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">이용약관을 모두 읽고 동의힙니다. <a href="javascript:void(0)">약관보기</a></label> 
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="form-group text-center p-b-20">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-12 text-center">
+                                    이미 계정이 있으신가요? <a href="#" class="text-info m-l-5"><b>로그인</b></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </template>
+            <!--회원가입템플릿-->
+    <script>
 
+        var user_key = sessionStorage.getItem('USER_KEY'); //유저키
+        var app1 = new Vue ({
+            el:'#app1',
+            template:'#app1_template',
+            data:{
+                login_user_info:[],
+            },
+            methods: {
+                set_login:function(){
+                    if(user_key){
+                        var vm = this;
+                        $.ajax({
+                            type:'POST',
+                            url:'https://api.sgrsoft.com/api/member/login_info',
+                            data:{key:user_key},
+                            dataType:'json',
+                            success:function(res){
+                                
+                                if(res.code=='200'){
+                                    vm.login_user_info = res.result;
+                                }
+                                
+                            },
+                            
+                        });
+                    }
+                },
+
+                login_pop:function(){
+                    bootbox.hideAll();
+                    bootbox.alert({
+                        message: $('#login_pop').html(),
+                        title:'삠삠이네 로그인',
+                    });
+
+                    // 로그인 클릭 시 서브밋
+                    $('#loginform').submit(function(){
+                        var param = $(this).serialize();
+                        console.log(param);
+                        $.ajax({
+                            type:'POST',
+                            url:'https://api.sgrsoft.com/api/member/signin',
+                            data:param,
+                            dataType:'json',
+                            success:function(res){
+                                console.log(res);
+                                if(res.code==200){
+                                    //세션 스토리지에 유저키를 저장하자
+                                    sessionStorage.setItem('USER_KEY',res.result.user_key);
+                                    user_key = res.result.user_key;
+                                    location.reload();
+                                }
+                                bootbox.alert({
+                                    message:res.message,
+                                });
+                            }
+                        });
+                        return false;
+                    });
+                },
+                signup_pop:function(){
+                    bootbox.hideAll();
+                    bootbox.alert({
+                        message: $('#signin_pop').html(),
+                        title:'삠삠이네 회원가입',
+                    });
+
+
+                    var vm = this;
+                    $('#user_id').keyup(function(){
+                        // console.log($(this).val());
+                        vm.overlap_chk('idchk',$(this).val(),'#user_id');
+                    });
+                    //닉네임 중복체크
+                    var vm = this;
+                    $('#user_nickname').keyup(function(){
+                        // console.log($(this).val());
+                        vm.overlap_chk('nicknamechk',$(this).val(),'#user_nickname');
+                    });
+
+                     //이메일 중복체크
+                    var vm = this;
+                    $('#user_email').keyup(function(){
+                        // console.log($(this).val());
+                        vm.overlap_chk('emailchk',$(this).val(),'#user_email');
+                    });
+
+
+                     //암호 형식 정규식으로 확인
+                    var vm = this;
+                    $('#user_passwd').keyup(function(){
+                        // console.log($(this).val());
+                        vm.check_password($(this).val(),'#user_passwd');
+                    });
+
+                    //암호입력 확인 
+                    var vm = this;
+                    $('#confirm_user_passwd').keyup(function(){
+                        // console.log($(this).val());
+                        // vm.check_password($(this).val(),'#confirm_user_passwd');
+                        $(this).removeClass('form-control-success').parent().parent().removeClass('has-success');
+                        $(this).removeClass('form-control-danger').parent().parent().removeClass('has-danger');
+
+                        if($(this).val()==$('#user_passwd').val()){
+                            $(this).addClass('form-control-success').parent().parent().addClass('has-success');
+                            $('#confirm_user_passwd_chk').val('Y');
+                            $('#confirm_user_passwd_help_txt').html('암호가 확인되었습니다.');
+                        }else{
+                            $(this).addClass('form-control-danger').parent().parent().addClass('has-danger');
+                            $('#confirm_user_passwd_chk').val('');
+                            $('#confirm_user_passwd_help_txt').html('암호가 일치하지 않습니다.');
+                        }
+                    });
+
+                    // 회원가입 클릭 시 서브밋
+                    $('#signform').submit(function(){
+                        var param = $(this).serialize();
+                        console.log(param);
+                        
+                        if($('#user_id_chk').val() !='Y'){
+                            bootbox.dialog({
+                                 message:'아이디를 확인해주시기 바랍니다'
+                            });
+                            return false;
+                        }
+
+                        if($('#user_nickname_chk').val() !='Y'){
+                            bootbox.dialog({
+                                 message:'닉네임을 확인해주시기 바랍니다'
+                            });
+                            return false;
+                        }
+
+                        if($('#user_email_chk').val() !='Y'){
+                            bootbox.dialog({
+                                 message:'이메일을 확인해주시기 바랍니다'
+                            });
+                            return false;
+                        }
+
+                        if($('#confirm_user_passwd_chk').val() !='Y'){
+                            bootbox.dialog({
+                                 message:'암호 유효성을 확인해주시기 바랍니다'
+                            });
+                            return false;
+                        }
+
+                        if(!$('#customCheck1').is(':checked')){
+                            bootbox.dialog({
+                                 message:'이용약관 동의해주세여'
+                            });
+                            return false;
+                        }
+
+                        $.ajax({
+                        type:'POST',
+                        url:'https://api.sgrsoft.com/api/member/signup',
+                        data:param,
+                        dataType:'json',
+                        success:function(res){
+                            if(res.code=='200'){
+                                bootbox.alert({
+                                    message:res.message,
+                                    callback:function (result) {
+                                        location.reload();
+                                    }
+                                });
+                            }else{
+                                bootbox.alert(res.message);
+                            }
+                            
+                        },
+                        
+                    });
+                        return false;
+                    });
+                },
+                overlap_chk:_.debounce(function(mode,val_txt,objd){
+                    //_.debounce 무분별한 로딩을 막기위한 라이브러리
+                    // console.log(text)
+                    $(objd).removeClass('form-control-success').parent().parent().removeClass('has-success');
+                    $(objd).removeClass('form-control-danger').parent().parent().removeClass('has-danger');
+
+                    $.ajax({
+                        type:'POST',
+                        url:'https://api.sgrsoft.com/api/member/overlap_chk',
+                        data:{
+                            'mode':mode,
+                            'id_txt':val_txt
+                        },
+                        // 'mode=='+mode+'&id_txt'+encodeURIComponent(val_txt),
+                        dataType:'json',
+                        success:function(res){
+                            console.log(res);
+                            if(res.code==200){
+                                $(objd).addClass('form-control-success').parent().parent().addClass('has-success');
+                                $(objd).next().next().val('Y');
+                            }else{
+                                $(objd).addClass('form-control-danger').parent().parent().addClass('has-danger');
+                            }
+                            $(objd).next().html(res.message);
+                        },
+                    });
+                },200), // 0.2s로 렉을 발생
+                    check_password:function(password){
+                    
+                    $('#user_passwd').removeClass('form-control-success form-control-danger')
+                    .parent().parent().removeClass('has-success has-danger'); 
+
+                    $('#user_passwd_chk').val('');
+                    var chked = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,15}$/.test(password);
+                    if(!chked){
+                    $('#user_passwd_help_txt').html('숫자와 영문자 조합으로 5~15자리를 사용해야 합니다.');
+                    $('#user_passwd').addClass('form-control-danger').parent().parent().addClass('has-danger');
+                    return false;
+                    }
+
+                    var checkNumber = password.search(/[0-9]/g);
+                    var checkEnglish = password.search(/[a-z]/ig);
+
+                    if(checkNumber <0 || checkEnglish <0){
+                        $('#user_passwd_help_txt').html("숫자와 영문자를 혼용하여야 합니다.");
+                        $('#user_passwd').addClass('form-control-danger').parent().parent().addClass('has-danger');
+                        return false;
+                    }
+
+                    if(/(\w)\1\1\1/.test(password)){
+                        $('#user_passwd_help_txt').html('444같은 문자를 4번 이상 사용하실 수 없습니다.');
+                        $('#user_passwd').addClass('form-control-danger').parent().parent().addClass('has-danger');
+                        return false;
+                    }
+                    
+                    $('#user_passwd_chk').val('Y');
+                    $('#user_passwd_help_txt').html('사용 가능한 암호입니다.');
+                    $('#user_passwd').addClass('form-control-success').parent().parent().addClass('has-success');
+                    return true;
+
+                },
+            },
+            
+            created() {
+                // this.login_pop();
+                // this.signup_pop();
+                this.set_login();
+
+            },
+        });
+    </script>
 
 </body>
 
